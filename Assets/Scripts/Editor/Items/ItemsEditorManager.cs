@@ -13,9 +13,9 @@ public class ItemsEditorManager : EditorWindow
 {
     private const string ROOT_FOLDER_PATH = "Assets/Inventory/Items/";
     private const string ARMOR_FOLDER_NAME = "Armors/";
-    private const string FOOD_NAME_FOLDER = "Foods/";
-    private const string potionsItemsPath = "Potions/";
-    private const string weaponItemsPath = "Weapons/";
+    private const string FOOD_FOLDER_NAME = "Foods/";
+    private const string POTIONS_FOLDER_NAME = "Potions/";
+    private const string WEAPON_FOLDER_NAME = "Weapons/";
     private const char SEPARATOR_FOLDER = '/';
 
     [MenuItem("Items/ItemManager")]
@@ -28,42 +28,49 @@ public class ItemsEditorManager : EditorWindow
 
     private void OnGUI()
     {
-        GUILayout.BeginVertical();
+        GUILayout.BeginHorizontal();
+        if (GUILayout.Button("ShowAll"))
+        {
+            string[]  guids = AssetDatabase.FindAssets("t:Item");
+            for (int i = 0; i < guids.Length; i++)
+            {
+              Item tt = AssetDatabase.LoadAssetAtPath<Item>(AssetDatabase.GUIDToAssetPath(guids[i]));
+              Debug.LogError(tt.IconPath);
+            }
+        }
+
         if (GUILayout.Button("Create Armor"))
         {
-            string path = ROOT_FOLDER_PATH + ARMOR_FOLDER_NAME;
-            if (!TryGetPath(path))
-            {
-                CreateFolders(path);
-            }
-
-            path += "NewArmor.asset";
-            Armor example = CreateInstance<Armor>();
-            AssetDatabase.CreateAsset(example, path);
-            Save();
-            EditorUtility.FocusProjectWindow();
-            Selection.activeObject = example;
+            // string path = ROOT_FOLDER_PATH + ARMOR_FOLDER_NAME;
+            // if (!TryGetPath(path))
+            // {
+            //     CreateFolders(path);
+            // }
+            //
+            // path += "NewArmor.asset";
+            // Armor example = CreateInstance<Armor>();
+            // AssetDatabase.CreateAsset(example, path);
+            // Save();
+            // EditorUtility.FocusProjectWindow();
+            // Selection.activeObject = example;
         }
 
-        GUILayout.EndVertical();
-        GUILayout.BeginVertical();
         if (GUILayout.Button("Create Food"))
         {
-            string path = ROOT_FOLDER_PATH + FOOD_NAME_FOLDER;
-            if (!TryGetPath(path))
-            {
-                CreateFolders(path);
-            }
-
-            path += "NewFood.asset";
-            Food example = CreateInstance<Food>();
-            AssetDatabase.CreateAsset(example, path);
-            Save();
-            EditorUtility.FocusProjectWindow();
-            Selection.activeObject = example;
+            // string path = ROOT_FOLDER_PATH + FOOD_FOLDER_NAME;
+            // if (!TryGetPath(path))
+            // {
+            //     CreateFolders(path);
+            // }
+            //
+            // path += "NewFood.asset";
+            // Food example = CreateInstance<Food>();
+            // AssetDatabase.CreateAsset(example, path);
+            // Save();
+            // EditorUtility.FocusProjectWindow();
+            // Selection.activeObject = example;
         }
-        
-        GUILayout.EndVertical();
+        GUILayout.BeginHorizontal();
     }
 
     private void Save()
@@ -93,6 +100,7 @@ public class ItemsEditorManager : EditorWindow
             {
                 AssetDatabase.CreateFolder(path, paths[i - 1]);
             }
+
             path = newPath;
             newPath += SEPARATOR_FOLDER + paths[i];
         }
