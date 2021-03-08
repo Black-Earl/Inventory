@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce95430cdb9f41168940b829a50940de, type: 3}
   m_Name: NewFood
   m_EditorClassIdentifier: 
-  idItem: 
-  iconPath: 
+  idItem: 4124124
+  iconPath: 241241
   modelPath: 
